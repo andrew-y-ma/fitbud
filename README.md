@@ -1,2 +1,2 @@
-# gym-buddy
+# fitbud
 starterhacks project
