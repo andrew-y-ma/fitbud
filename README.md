@@ -1,2 +1,2 @@
 # gym-buddy
-starterhacks
+starterhacks project
