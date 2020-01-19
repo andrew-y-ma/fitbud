@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" class="sr">
+<head>
+  <style>
+    @font-face {
+      font-family: 'Product Sans';
+      font-style: normal;
+      font-weight: 400;
+      src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/productsans/v5/HYvgU2fE2nRJvZ5JFAumwegdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
+    }
+
+    body {
+      font-family: 'Product Sans';
+      background-color: #fafafa;
+    }
+
+    #u0_img {
+      position:absolute;
+      left: 0px;
+      top: 0px;
+      width: 1440px;
+      height: 751px;
+      border-width: 0px;
+    }
+
+    .ax_default {
+      font-family: ArialMT, Arial;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 13px;
+      color: rgb(51, 51, 51);
+      letter-spacing: normal;
+      text-align: center;
+      line-height: normal;
+      text-transform: none;
+    }
+
+    .profiles {
+      width: 775px;
+      height: 200px;
+      border-radius: 20px;
+      background-color: #ECECEC;
+      margin-top: 50px;
+      margin-left:50px;
+    }
+
+    .names {
+      position: relative;
+      top: 30px;
+      left: 175px;
+      display: inline-flex;
+    }
+
+    .pp {
+      width:100px;
+      height: 100px;
+      border-style: solid;
+      border-color: #A2FEA6;
+      border-radius: 100px;
+      border-width: 5px;
+      background-size: 170%;
+      background-repeat: no-repeat;
+      margin-left: 20px;
+    }
+
+    .description-right {
+      margin-left: 400px;
+      margin-top: 0px;
+      text-align: right;
+      display: inline-flex;
+    }
+
+    .header-box {
+      width: 1450px;
+      margin-left: -10px;
+      margin-top: -8px;
+      background-image: url("header.png");
+    }
+
+    input[type=text] {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      padding-left: 10px;
+      display: inline-flex;
+      font-size: 20px;
+    }
+
+    button {
+      cursor: pointer;
+      width: 50px;
+      height: 10px;
+      background-color: #A2FEA6
+    }
+
+  </style>
+</head>
+<body>
+  <div class="header-box">
+    <input type="text" name="search" placeholder="Search buds..." style="border-radius: 40px 0px 0px 40px; margin-left: 55px; width: 250px">
+    <input type="text" name="search" placeholder="Search location..." style="border-radius: 0px 1px 2px 0px; margin-left: -4px; width: 350px">
+    <button type="button" style="padding-top: 10px"></button>
+  </div>
+
+  <div id="googleMap" style="width:500px; height:500px; float:right; border-radius: 20px; position: relative; top: 70px; bottom: 100px; right: 50px"></div>
+  <script>
+    function myMap() {
+      var myLatLng = {lat: 43.4643, lng: -80.5204};
+      var mapProp= {
+        center:new google.maps.LatLng(43.4643,-80.5204),
+        zoom:14,
+      };
+      var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+      var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        title: 'Hello World!'
+      });
+    }
+  </script>
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB82av0JOIUNydNM61sgy8PCN2k7iqIrVw&callback=myMap">
+  </script>
+
+  <!--
+  <div class="bud" >
+    <input type="text" placeholder="Search type of bud...">
+    <p>within</p>
+    <input type="text" placeholder="Number..." style="padding-right:1px">
+    <p>km of </p>
+    <input type="text" placeholder="Location...">
+  </div>
+` -->`
+
+
+  <div class="profiles">
+    <h1 class="names">John Doe</h1><h1>123 fitness</h1>
+    <div class="pp" style="background-image: url(https://st.focusedcollection.com/14026668/i/650/focused_166044952-stock-photo-people-exercising-in-gym.jpg)"></div>
+    </div>
+  </div>
+  <div class="profiles">
+    <h1 class="names">Karen Jackson</h1>
+    <div class="pp" style="background-image: url(karen.jpg); background-size: 100%;"></div>
+  </div>
+  <div class="profiles">
+    <h1 class="names">Linda Armstrong</h1>
+    <div class="pp" style="background-image: url(linda.jpg); background-size: 105%"></div>
+  </div>
+  <div class="profiles">
+    <h1 class="names">Kevin Li</h1>
+    <div class="pp" style="background-image: url(kevin.jpg); background-size: 120%"></div>
+  </div>
+  <div class="profiles">
+    <h1 class="names">Donald Coleman</h1>
+    <div class="pp" style="background-image: url(donald.jpg); background-size: 123%"></div>
+  </div>
+  <div class="profiles">
+    <h1 class="names">Jane Doe</h1>
+    <div class="pp" style="background-image: url(jane.jpg); background-size: 115%"></div>
+  </div>
+</body>
+</html>
+
+
+<!-- AIzaSyB82av0JOIUNydNM61sgy8PCN2k7iqIrVw -->
