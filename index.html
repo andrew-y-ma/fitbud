@@ -1,38 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" class="sr">
 <head>
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
   <style>
-    @font-face {
-      font-family: 'Product Sans';
-      font-style: normal;
-      font-weight: 400;
-      src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/productsans/v5/HYvgU2fE2nRJvZ5JFAumwegdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
-    }
-
     body {
-      font-family: 'Product Sans';
+      font-family: 'Raleway';
       background-color: #fafafa;
-    }
-
-    #u0_img {
-      position:absolute;
-      left: 0px;
-      top: 0px;
-      width: 1440px;
-      height: 751px;
-      border-width: 0px;
-    }
-
-    .ax_default {
-      font-family: ArialMT, Arial;
-      font-weight: 400;
-      font-style: normal;
-      font-size: 13px;
-      color: rgb(51, 51, 51);
-      letter-spacing: normal;
-      text-align: center;
-      line-height: normal;
-      text-transform: none;
     }
 
     .profiles {
@@ -48,7 +21,7 @@
       position: relative;
       top: 30px;
       left: 175px;
-      display: inline-flex;
+      font-size: 40px;
     }
 
     .pp {
@@ -64,10 +37,12 @@
     }
 
     .description-right {
-      margin-left: 400px;
-      margin-top: 0px;
+      position: relative;
+      left: 560px;
+      top: -150px;
       text-align: right;
       display: inline-flex;
+      font-size: 20px;
     }
 
     .header-box {
@@ -88,10 +63,96 @@
     }
 
     button {
+      border-radius: 0px 20px 20px 0px;
+      position: absolute;
+      top:12px;
       cursor: pointer;
       width: 50px;
-      height: 10px;
+      height: 65px;
       background-color: #A2FEA6
+    }
+
+    #map {
+      height: 100%;
+      width: 500px;
+      height: 500px;
+      float: right;
+      border-radius: 20px;
+      position: relative;
+      top: 70px;
+      bottom: 100px;
+      right: 50px;
+    }
+
+    #description {
+      font-family: Roboto;
+      font-size: 15px;
+      font-weight: 300;
+    }
+
+    #infowindow-content .title {
+      font-weight: bold;
+    }
+
+    #infowindow-content {
+      display: none;
+    }
+
+    #map #infowindow-content {
+      display: inline;
+    }
+
+    .pac-card {
+      margin: 10px 10px 0 0;
+      border-radius: 2px 0 0 2px;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      outline: none;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      background-color: #fff;
+      font-family: Roboto;
+    }
+
+    #pac-container {
+      padding-bottom: 12px;
+      margin-right: 12px;
+    }
+
+    .pac-controls {
+      display: inline-block;
+      padding: 5px 11px;
+    }
+
+    .pac-controls label {
+      font-family: Roboto;
+      font-size: 13px;
+      font-weight: 300;
+    }
+
+    #pac-input {
+      background-color: #fff;
+      font-family: Roboto;
+      font-size: 15px;
+      font-weight: 300;
+      margin-left: 12px;
+      padding: 0 11px 0 13px;
+      text-overflow: ellipsis;
+      width: 400px;
+    }
+
+    #pac-input:focus {
+      border-color: #4d90fe;
+    }
+
+    #title {
+      color: #fff;
+      background-color: #4d90fe;
+      font-size: 25px;
+      font-weight: 500;
+      padding: 6px 12px;
+    }
+    #target {
+      width: 345px;
     }
 
   </style>
@@ -100,56 +161,146 @@
   <div class="header-box">
     <input type="text" name="search" placeholder="Search buds..." style="border-radius: 40px 0px 0px 40px; margin-left: 55px; width: 250px">
     <input type="text" name="search" placeholder="Search location..." style="border-radius: 0px 1px 2px 0px; margin-left: -4px; width: 350px">
-    <button type="button" style="padding-top: 10px"></button>
+    <button type="button" style="padding-top: 40px">
+      <img src="https://cdn0.iconfinder.com/data/icons/vector-basic-tab-bar-icons/48/find-512.png" style="width: 50px; position: relative; top: -33px; right: 9px">
+    </button>
   </div>
-
-  <div id="googleMap" style="width:500px; height:500px; float:right; border-radius: 20px; position: relative; top: 70px; bottom: 100px; right: 50px"></div>
+  <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+  <div id="map"></div>
   <script>
-    function myMap() {
-      var myLatLng = {lat: 43.4643, lng: -80.5204};
-      var mapProp= {
-        center:new google.maps.LatLng(43.4643,-80.5204),
-        zoom:14,
-      };
-      var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
-      var marker = new google.maps.Marker({
-        position: myLatLng,
-        map: map,
-        title: 'Hello World!'
+  // This example adds a search box to a map, using the Google Place Autocomplete
+  // feature. People can enter geographical searches. The search box will return a
+  // pick list containing a mix of places and predicted search terms.
+
+  // This example requires the Places library. Include the libraries=places
+  // parameter when you first load the API. For example:
+  // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+  function initAutocomplete() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 43.4643, lng: -80.5204},
+      zoom: 13,
+      mapTypeId: 'roadmap'
+    });
+
+    // Create the search box and link it to the UI element.
+    var input = document.getElementById('pac-input');
+    var searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+    // Bias the SearchBox results towards current map's viewport.
+    map.addListener('bounds_changed', function() {
+      searchBox.setBounds(map.getBounds());
+    });
+
+    var markers = [];
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    searchBox.addListener('places_changed', function() {
+      var places = searchBox.getPlaces();
+
+      if (places.length == 0) {
+        return;
+      }
+
+      // Clear out the old markers.
+      markers.forEach(function(marker) {
+        marker.setMap(null);
       });
+      markers = [];
+
+      // For each place, get the icon, name and location.
+      var bounds = new google.maps.LatLngBounds();
+      places.forEach(function(place) {
+        if (!place.geometry) {
+          console.log("Returned place contains no geometry");
+          return;
+        }
+        var icon = {
+          url: place.icon,
+          size: new google.maps.Size(71, 71),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(17, 34),
+          scaledSize: new google.maps.Size(25, 25)
+        };
+
+        // Create a marker for each place.
+        markers.push(new google.maps.Marker({
+          map: map,
+          icon: icon,
+          title: place.name,
+          position: place.geometry.location
+        }));
+
+        if (place.geometry.viewport) {
+          // Only geocodes have viewport.
+          bounds.union(place.geometry.viewport);
+        } else {
+          bounds.extend(place.geometry.location);
+        }
+      });
+      map.fitBounds(bounds);
+    });
+  }
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeE5kPx7ak7fN5CipHaAtJOtq4KOMenyI&libraries=places&callback=initAutocomplete"
+     async defer></script>
+
+<script>
+  window.onscroll = function() {myFunction()};
+
+  // Get the header
+  var header = document.getElementById("myHeader");
+
+  // Get the offset position of the navbar
+  var sticky = header.offsetTop;
+
+  // Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
+  function myFunction() {
+    if (window.pageYOffset > sticky) {
+      header.classList.add("sticky");
+    } else {
+      header.classList.remove("sticky");
     }
-  </script>
-  <script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB82av0JOIUNydNM61sgy8PCN2k7iqIrVw&callback=myMap">
-  </script>
-
-  <!--
-  <div class="bud" >
-    <input type="text" placeholder="Search type of bud...">
-    <p>within</p>
-    <input type="text" placeholder="Number..." style="padding-right:1px">
-    <p>km of </p>
-    <input type="text" placeholder="Location...">
-  </div>
-` -->`
-
+  }
+</script>
 
   <div class="profiles">
-    <h1 class="names">John Doe</h1><h1>123 fitness</h1>
+    <h1 class="names">John Doe</h1>
     <div class="pp" style="background-image: url(https://st.focusedcollection.com/14026668/i/650/focused_166044952-stock-photo-people-exercising-in-gym.jpg)"></div>
+    <div class="description-right">
+      <p>GoodLife Fitness<br>
+      Weber Street North<br>
+      (123) 456-7890</p>
     </div>
   </div>
   <div class="profiles">
     <h1 class="names">Karen Jackson</h1>
     <div class="pp" style="background-image: url(karen.jpg); background-size: 100%;"></div>
+    <div class="description-right">
+      <p>123 Fitness<br>
+      123 Ramdom Street<br>
+      (111) 111-1111</p>
+    </div>
   </div>
   <div class="profiles">
     <h1 class="names">Linda Armstrong</h1>
     <div class="pp" style="background-image: url(linda.jpg); background-size: 105%"></div>
+    <div class="description-right">
+      <p>456 Fitness<br>
+      456 Ramdom Street<br>
+      (222) 222-2222</p>
+    </div>
   </div>
   <div class="profiles">
     <h1 class="names">Kevin Li</h1>
     <div class="pp" style="background-image: url(kevin.jpg); background-size: 120%"></div>
+    <div class="description-right">
+      <p>789 Fitness<br>
+      789 Ramdom Street<br>
+      (333) 333-3333</p>
+    </div>
   </div>
   <div class="profiles">
     <h1 class="names">Donald Coleman</h1>
@@ -161,6 +312,3 @@
   </div>
 </body>
 </html>
-
-
-<!-- AIzaSyB82av0JOIUNydNM61sgy8PCN2k7iqIrVw -->
