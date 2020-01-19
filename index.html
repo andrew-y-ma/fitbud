@@ -34,6 +34,7 @@
       background-size: 170%;
       background-repeat: no-repeat;
       margin-left: 20px;
+      margin-top: -100px;
     }
 
     .description-right {
@@ -46,7 +47,7 @@
     }
 
     .header-box {
-      width: 1450px;
+      width: 1480px;
       margin-left: -10px;
       margin-top: -8px;
       background-image: url("header.png");
@@ -70,6 +71,12 @@
       width: 50px;
       height: 65px;
       background-color: #A2FEA6
+    }
+
+    .message {
+      font-size: 20px;
+      margin-top: 10px;
+      display: inline-flex;
     }
 
     #map {
@@ -168,14 +175,6 @@
   <input id="pac-input" class="controls" type="text" placeholder="Search Box">
   <div id="map"></div>
   <script>
-  // This example adds a search box to a map, using the Google Place Autocomplete
-  // feature. People can enter geographical searches. The search box will return a
-  // pick list containing a mix of places and predicted search terms.
-
-  // This example requires the Places library. Include the libraries=places
-  // parameter when you first load the API. For example:
-  // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
   function initAutocomplete() {
     var map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 43.4643, lng: -80.5204},
@@ -267,7 +266,9 @@
 </script>
 
   <div class="profiles">
-    <h1 class="names">John Doe</h1>
+    <h1 class="names">John Doe<br>
+      <p class="message"><a href="">Message...</a></p>
+    </h1>
     <div class="pp" style="background-image: url(https://st.focusedcollection.com/14026668/i/650/focused_166044952-stock-photo-people-exercising-in-gym.jpg)"></div>
     <div class="description-right">
       <p>GoodLife Fitness<br>
@@ -276,7 +277,9 @@
     </div>
   </div>
   <div class="profiles">
-    <h1 class="names">Karen Jackson</h1>
+    <h1 class="names">Karen Jackson<br>
+      <p class="message"><a href="">Message...</a></p>
+    </h1>
     <div class="pp" style="background-image: url(karen.jpg); background-size: 100%;"></div>
     <div class="description-right">
       <p>123 Fitness<br>
@@ -285,7 +288,8 @@
     </div>
   </div>
   <div class="profiles">
-    <h1 class="names">Linda Armstrong</h1>
+    <h1 class="names">Linda Armstrong<br>
+      <p class="message"><a href="">Message...</a></p></h1>
     <div class="pp" style="background-image: url(linda.jpg); background-size: 105%"></div>
     <div class="description-right">
       <p>456 Fitness<br>
@@ -294,7 +298,8 @@
     </div>
   </div>
   <div class="profiles">
-    <h1 class="names">Kevin Li</h1>
+    <h1 class="names">Kevin Li<br>
+      <p class="message"><a href="">Message...</a></p></h1>
     <div class="pp" style="background-image: url(kevin.jpg); background-size: 120%"></div>
     <div class="description-right">
       <p>789 Fitness<br>
@@ -303,7 +308,8 @@
     </div>
   </div>
   <div class="profiles">
-    <h1 class="names">Donald Coleman</h1>
+    <h1 class="names">Donald Coleman<br>
+      <p class="message"><a href="">Message...</a></p></h1>
     <div class="pp" style="background-image: url(donald.jpg); background-size: 123%"></div>
     <div class="description-right">
       <p>789 Fitness<br>
@@ -312,7 +318,8 @@
     </div>
   </div>
   <div class="profiles">
-    <h1 class="names">Jane Doe</h1>
+    <h1 class="names">Jane Doe<br>
+      <p class="message"><a href="">Message...</a></p></h1>
     <div class="pp" style="background-image: url(jane.jpg); background-size: 115%"></div>
     <div class="description-right">
       <p>789 Fitness<br>
